@@ -1,45 +1,28 @@
 module.exports = function(grunt){
-    // Project configuration.
-    grunt.initConfig({
-        pkg: grunt.file.readJSON("package.json"),
-        sass: {
-            compile: {
-                files: {
-                    "css/main.css": "pre_css/main.scss"
-                },
-            },
-        },
-        watch: {
-            options: {
-                livereload: true,
-            },
-            sass: {
-                files: "pre_css/*.scss",
-                tasks: "sass"
-            },
-        },
-        express: {
-            all: {
-                options: {
-                    port: 9888,
-                    hostname: "localhost",
-                    base: ".",
-                    livereload: true,
-                },
-            },
-        },
-    });
+  grunt.initConfig({
+    concat: {
+      // concat task configuration goes here.
+      'dist/requirejs.js': ['scripts/*.js']
+    },
+    uglify: {
+      // uglify task configuration goes here.
+      'dist/require.min.js': ['dist/requirejs.js']
+    },
+    jshint: {
+      files: ['Gruntfile.js', 'scripts/*.js']
+    },
+    watch: {
+      files: ['Gruntfile.js', 'scripts/*.js'],
+      tasks: ['jshint', 'concat', 'uglify']
+    },
+  });
 
-    // Load the plugin that provides the "uglify" task.
-    //grunt.loadNpmTasks("grunt-contrib-uglify");
-    // Load browsersync task
-    grunt.loadNpmTasks("grunt-browser-sync");
-    grunt.loadNpmTasks("grunt-contrib-connect");
-    grunt.loadNpmTasks("grunt-contrib-sass");
-    grunt.loadNpmTasks("grunt-contrib-watch");
-    grunt.loadNpmTasks("grunt-express");
+  // Load our plugins
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
-    // Default task(s).
-    grunt.registerTask("default", ["watch"]);
-    grunt.registerTask("server", ["express", "watch"]);
+  // Register default task
+  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
 };

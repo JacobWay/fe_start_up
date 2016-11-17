@@ -7,3 +7,9 @@ requirejs(["util"], function(){
     console.log("p     ", p);
     p.innerHTML = "?????? me";
 });
+
+console.log("in util ...");
+
+function doUtil(){
+    console.log("do util ...");
+}
