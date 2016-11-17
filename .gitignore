@@ -29,6 +29,7 @@ _site
 *.sublime-workspace
 nbproject
 Thumbs.db
+.sass-cache
 
 # komodo
 .komodotools
