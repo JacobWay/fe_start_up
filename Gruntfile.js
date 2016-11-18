@@ -6,6 +6,9 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
+    jshint: {
+      files: ["Gruntfile.js", "scripts/*.js"],
+    },
     sass: {
       dist: {
         files: [{
@@ -16,9 +19,6 @@ module.exports = function(grunt) {
           ext: '.css'
         }],
       },
-    },
-    jshint: {
-      files: ["scripts/*.js"],
     },
     concat: {
       js: {
