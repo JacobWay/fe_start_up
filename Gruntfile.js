@@ -1,28 +1,43 @@
-module.exports = function(grunt){
+//
+// http://24ways.org/2013/grunt-is-not-weird-and-hard/
+//
+module.exports = function(grunt) {
   grunt.initConfig({
-    concat: {
-      // concat task configuration goes here.
-      'dist/requirejs.js': ['scripts/*.js']
+    pkg: grunt.file.readJSON("package.json"),
+    "connect": {
+      keepalive: {
+        options: {
+          port: 8989,
+          host: "localhost",
+          livereload: true,
+          open: "http://localhost:8989/html/main.html"
+        }
+      }
     },
-    uglify: {
-      // uglify task configuration goes here.
-      'dist/require.min.js': ['dist/requirejs.js']
-    },
-    jshint: {
-      files: ['Gruntfile.js', 'scripts/*.js']
-    },
-    watch: {
-      files: ['Gruntfile.js', 'scripts/*.js'],
-      tasks: ['jshint', 'concat', 'uglify']
+    "watch": {
+      "build": {
+        files: ["scripts/main.js", "html/*.html"],
+        options: {
+          livereload: true
+        }
+      }
     },
   });
 
-  // Load our plugins
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
 
-  // Register default task
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+  //
+  // Register modules
+  //
+  grunt.loadNpmTasks("grunt-contrib-connect");
+  grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.loadNpmTasks("grunt-concurrent");
+  grunt.loadNpmTasks("grunt-browserify");
+
+
+  //
+  // Register tasks
+  //
+  grunt.registerTask("serve", ["connect", "watch:build"]);
 };
+
+

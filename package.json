@@ -21,6 +21,7 @@
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-express": "^1.4.1",
-    "grunt-parallel": "^0.5.1"
+    "grunt-parallel": "^0.5.1",
+    "gulp": "^3.9.1"
   }
 }
