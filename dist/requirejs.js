@@ -6,8 +6,7 @@
     console.log("p     ", p);
     p.innerHTML = "????? It's working !!!!!";
 })();
-
-console.log("in util ...");
+;console.log("in util ...");
 
 function doUtil(){
     console.log("do util ...");

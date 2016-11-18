@@ -11,7 +11,7 @@ module.exports = function(grunt){
     // Store the project settings from the package.json
     pkg: grunt.file.readJSON("package.json"),
 
-    // concat files
+    // Concat files
     concat: {
       options: {
         // define a string to put between each file
@@ -21,6 +21,18 @@ module.exports = function(grunt){
       dist: {
         src: ["scripts/**/*.js"],
         dest: "dist/<%= pkg.name %>.js"
+      },
+    },
+
+    // Minifies the files
+    uglify: {
+      options: {
+        // The banner is inserted at the top of the output
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+      },
+      dist: {
+        src: ['<%= concat.dist.dest %>'],
+        dest: 'dist/<%= pkg.name %>.min.js'
       },
     },
 
@@ -36,10 +48,16 @@ module.exports = function(grunt){
     },
 
     watch: {
+      refresh: {
         options: {
           livereload: true,
         },
         files: ["Gruntfile.js", "scripts/*.js", "html/*.html", "css/*.css"],
+      },
+      watch_tasks: {
+        files: ["scripts/*.js"],
+        tasks: ["concat", "uglify"]
+      },
     },
 
 
@@ -56,6 +74,7 @@ module.exports = function(grunt){
   grunt.loadNpmTasks("grunt-contrib-sass");
   grunt.loadNpmTasks("grunt-contrib-cssmin");
 
+  grunt.registerTask("build", ["concat", "uglify"]);
   grunt.registerTask("default", ["connect", "watch"]);
 };
 
