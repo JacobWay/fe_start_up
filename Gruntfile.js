@@ -1,77 +1,51 @@
-module.exports = function(grunt) {
+// Wrapper function which encapsulates grunt 
+// configuration.
+module.exports = function(grunt){
   "use strict";
 
   // Force use of Unix newlines
-  grunt.util.linefeed = "\n";
+  grunt.util.lineFeed = "\n";
 
+  // initialize our configuration object.
   grunt.initConfig({
+    // Store the project settings from the package.json
     pkg: grunt.file.readJSON("package.json"),
-    jshint: {
-      files: ["Gruntfile.js", "scripts/*.js"],
-    },
-    sass: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: 'pre_css',
-          src: ['*.scss'],
-          dest: 'css',
-          ext: '.css'
-        }],
-      },
-    },
+
+    // concat files
     concat: {
-      js: {
-        src: ["scripts/*.js"],
+      options: {
+        // define a string to put between each file
+        // in the concatenated output
+        separator: ";"
+      },
+      dist: {
+        src: ["scripts/**/*.js"],
         dest: "dist/<%= pkg.name %>.js"
       },
-      options: {
-        // Task-level options may go here, overriding task defaults.
-      },
     },
-    uglify: {
-      js: {
-        src: "dist/<%= pkg.name %>.js",
-        dest: "dist/<%= pkg.name %>.min.js",
-      },
-    },
-    cssmin: {
-      css: {
-        files: [{
-          expand: true,
-          cwd: "css",
-          src: ["*.css", "!*.min.css"],
-          dest: "css",
-          ext: ".min.css",
-        }],
-      },
-    },
-    "connect": {
-      keepalive: {
+
+    connect: {
+      server: {
         options: {
           port: 8989,
           host: "*",
           livereload: true,
-          open: "http://localhost:8989/html/main.html"
-        }
-      }
-    },
-    "watch": {
-      "build": {
-        files: ["scripts/main.js", "html/*.html", "css/*.css"],
-        options: {
-          livereload: true
-        }
+          open: "http://localhost:8989/html/main.html",
+        },
       },
-      files: ["scripts/*.js", "Gruntfile.js", "pre_css/*.scss", "css/*.css"],
-      tasks:  ["jshint", "sass", "concat", "uglify", "cssmin"]
     },
+
+    watch: {
+        options: {
+          livereload: true,
+        },
+        files: ["Gruntfile.js", "scripts/*.js", "html/*.html", "css/*.css"],
+    },
+
+
   });
 
-
-  //
   // Register modules
-  //
   grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-concurrent");
@@ -82,12 +56,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-sass");
   grunt.loadNpmTasks("grunt-contrib-cssmin");
 
-
-  //
-  // Register tasks
-  //
   grunt.registerTask("default", ["connect", "watch"]);
-  grunt.registerTask("build", ["jshint", "sass", "concat", "uglify", "cssmin"]);
 };
-
 
