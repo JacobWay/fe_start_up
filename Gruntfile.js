@@ -1,4 +1,9 @@
 module.exports = function(grunt) {
+  "use strict";
+
+  // Force use of Unix newlines
+  grunt.util.linefeed = "\n";
+
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
     sass: {
@@ -24,6 +29,23 @@ module.exports = function(grunt) {
         // Task-level options may go here, overriding task defaults.
       },
     },
+    uglify: {
+      js: {
+        src: "dist/<%= pkg.name %>.js",
+        dest: "dist/<%= pkg.name %>.min.js",
+      },
+    },
+    cssmin: {
+      css: {
+        files: [{
+          expand: true,
+          cwd: "css",
+          src: ["*.css", "!*.min.css"],
+          dest: "css",
+          ext: ".min.css",
+        }],
+      },
+    },
     "connect": {
       keepalive: {
         options: {
@@ -41,8 +63,8 @@ module.exports = function(grunt) {
           livereload: true
         }
       },
-      files: ["scripts/*.js", "Gruntfile.js", "pre_css/*.scss"],
-      tasks:  ["jshint", "sass", "concat"]
+      files: ["scripts/*.js", "Gruntfile.js", "pre_css/*.scss", "css/*.css"],
+      tasks:  ["jshint", "sass", "concat", "uglify", "cssmin"]
     },
   });
 
@@ -56,15 +78,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-browserify");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-contrib-concat");
-  //grunt.loadNpmTasks("grunt-contrib-uglify");
+  grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-sass");
+  grunt.loadNpmTasks("grunt-contrib-cssmin");
 
 
   //
   // Register tasks
   //
   grunt.registerTask("default", ["connect", "watch"]);
-  grunt.registerTask("build", ["jshint", "sass", "concat"]);
+  grunt.registerTask("build", ["jshint", "sass", "concat", "uglify", "cssmin"]);
 };
 
 
