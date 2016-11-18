@@ -18,11 +18,13 @@
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-cssmin": "^1.0.2",
     "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-qunit": "^1.2.0",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-express": "^1.4.1",
     "grunt-parallel": "^0.5.1",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "qunit": "^0.9.1"
   }
 }

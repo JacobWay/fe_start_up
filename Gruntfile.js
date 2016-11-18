@@ -36,6 +36,18 @@ module.exports = function(grunt){
       },
     },
 
+    // To automate the testing of the code
+    qunit: {
+      files: ["test/**/*.html"],
+    },
+
+    // Analyze JS files
+    jshint: {
+      files: ["Gruntfile.js", "scripts/**/*.js", ],
+      options:{
+      },
+    },
+
     connect: {
       server: {
         options: {
@@ -52,11 +64,11 @@ module.exports = function(grunt){
         options: {
           livereload: true,
         },
-        files: ["Gruntfile.js", "scripts/*.js", "html/*.html", "css/*.css"],
+        files: ["Gruntfile.js", "scripts/*.js", "html/*.html", "css/*.css", "test/*.js"],
       },
       watch_tasks: {
-        files: ["scripts/*.js"],
-        tasks: ["concat", "uglify"]
+        files: ["scripts/*.js", "html/*.html"],
+        tasks: ["concat", "uglify", "jshint", "qunit"]
       },
     },
 
@@ -73,8 +85,10 @@ module.exports = function(grunt){
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-sass");
   grunt.loadNpmTasks("grunt-contrib-cssmin");
+  grunt.loadNpmTasks("grunt-contrib-qunit");
 
   grunt.registerTask("build", ["concat", "uglify"]);
+  grunt.registerTask("test", ["jshint", "qunit"]);
   grunt.registerTask("default", ["connect", "watch"]);
 };
 
