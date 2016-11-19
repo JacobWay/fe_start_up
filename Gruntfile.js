@@ -100,7 +100,7 @@ module.exports = function(grunt){
         files: ["Gruntfile.js", "scripts/*.js", "html/*.html", "css/*.css", "test/*.js"],
       },
       watch_tasks: {
-        files: ["Gruntfile.js", "scripts/*.js", "html/*.html", "pre_css/*.scss"],
+        files: ["Gruntfile.js", "scripts/*.js", "html/*.html", "pre_css/*.scss", "test/*.html"],
         tasks: ["concat", "uglify", "jshint", "sass", "cssmin", "qunit"]
       },
     },
