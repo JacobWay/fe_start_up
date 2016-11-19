@@ -14,25 +14,58 @@ module.exports = function(grunt){
     // Concat files
     concat: {
       options: {
-        // define a string to put between each file
-        // in the concatenated output
-        separator: ";"
       },
-      dist: {
-        src: ["scripts/**/*.js"],
-        dest: "dist/<%= pkg.name %>.js"
+      foo: {
       },
+      //options: {
+        //// define a string to put between each file
+        //// in the concatenated output
+        //separator: ";",
+        //sourceMap: true,
+      //},
+      //dist: {
+        //src: ["scripts/**/*.js"],
+        //dest: "dist/<%= pkg.name %>.js"
+      //},
     },
 
     // Minifies the files
     uglify: {
       options: {
         // The banner is inserted at the top of the output
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n',
+        sourceMap: true,
       },
       dist: {
-        src: ['<%= concat.dist.dest %>'],
+        src: "scripts/*.js",
         dest: 'dist/<%= pkg.name %>.min.js'
+      },
+    },
+
+    sass: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: "pre_css",
+          src: ["*.scss"],
+          dest: "css",
+          ext: ".css",
+        }],
+      },
+    },
+
+    cssmin: {
+      css: {
+        options: {
+          sourceMap: true,
+        },
+        files: [{
+          expand: true,
+          cwd: "css",
+          src: ["*.css", "!*.min.css"],
+          dest: "css",
+          ext: ".min.css",
+        }],
       },
     },
 
@@ -67,8 +100,8 @@ module.exports = function(grunt){
         files: ["Gruntfile.js", "scripts/*.js", "html/*.html", "css/*.css", "test/*.js"],
       },
       watch_tasks: {
-        files: ["scripts/*.js", "html/*.html"],
-        tasks: ["concat", "uglify", "jshint", "qunit"]
+        files: ["Gruntfile.js", "scripts/*.js", "html/*.html", "pre_css/*.scss"],
+        tasks: ["concat", "uglify", "jshint", "sass", "cssmin", "qunit"]
       },
     },
 
@@ -87,7 +120,7 @@ module.exports = function(grunt){
   grunt.loadNpmTasks("grunt-contrib-cssmin");
   grunt.loadNpmTasks("grunt-contrib-qunit");
 
-  grunt.registerTask("build", ["concat", "uglify"]);
+  grunt.registerTask("build", ["jshint", "concat", "uglify", "sass", "cssmin"]);
   grunt.registerTask("test", ["jshint", "qunit"]);
   grunt.registerTask("default", ["connect", "watch"]);
 };

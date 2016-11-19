@@ -15,6 +15,7 @@ _site
 *.zip
 *.pyc
 *~
+*.map
 
 # OS or Editor folders
 ._*

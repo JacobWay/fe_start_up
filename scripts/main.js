@@ -11,7 +11,7 @@
     console.log("p     ", p);
     p.innerHTML = "????? It's working !!!!!";
 
-    jacobObj = {
+    var jacobObj = {
         square: square,
     };
     window.jacobObj = jacobObj;
