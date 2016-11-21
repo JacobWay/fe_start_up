@@ -4,12 +4,10 @@
 
 
     requirejs.config({
-        baseUrl: "../bower_components/",
         paths: {
-            jquery: "jquery/dist/jquery",
-            backbone: "backbone/backbone",
-            underscore: "underscore/underscore",
-            util: "../scripts/util",
+            jquery: "../bower_components/jquery/dist/jquery",
+            backbone: "../bower_components/backbone/backbone",
+            underscore: "../bower_components/underscore/underscore",
         }
     });
 
