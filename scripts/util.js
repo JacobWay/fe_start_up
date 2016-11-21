@@ -4,7 +4,7 @@ function doUtil(){
     console.log("do util ...");
 }
 
-define(function(){
+define("util_id", function(){
     return {
         doUtil: doUtil,
     };

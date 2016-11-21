@@ -2,14 +2,14 @@
 (function() {
     "use strict";
 
-    var backbone = "../bower_components/backbone/backbone";
-    var underscore = "../bower_components/underscore/underscore";
-    var jquery = "../bower_components/jquery/dist/jquery";
 
     requirejs.config({
+        baseUrl: "../bower_components/",
         paths: {
-            jquery: jquery,
-            '.' : "scripts",
+            jquery: "jquery/dist/jquery",
+            backbone: "backbone/backbone",
+            underscore: "underscore/underscore",
+            util: "../scripts/util",
         }
     });
 
@@ -21,7 +21,7 @@
         console.log("util..... ", util);
     });
 
-    require([jquery, underscore, backbone], function(jq, _, Backbone) {
+    require(["jquery", "underscore", "backbone"], function(jq, _, Backbone) {
         Backbone.sync = function(method, model) {
             $("p").html(JSON.stringify(model));
         };
