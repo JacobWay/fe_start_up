@@ -1,0 +1,1 @@
+define(["backbone"],function(n){var e=n.View.extend({initialize:function(){console.log("Wahoo!")}});return e});

@@ -1,14 +1,16 @@
 ;(function(){
   "use strict";
 
-  Backbone.sync = function(method, model){
-    document.write(method + " : " + JSON.stringify(model));
-  };
-
-  var my_collection = new Backbone.Collection({
-    "example": "Backbone Sync",
-    "title": "Learning with easy"
+  requirejs.config({
+    paths: {
+      "jquery": "../../bower_components/jquery/dist/jquery",
+      "underscore": "../../bower_components/underscore/underscore",
+      "backbone": "../../bower_components/backbone/backbone",
+    }
   });
 
-  my_collection.fetch();
+  require(['views/app'], function(AppView){
+    new AppView();
+  });
+
 })();
