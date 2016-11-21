@@ -4,17 +4,20 @@ install grunt-contrib-watch
 install grunt-contrib-connect
 install grunt-contrib-sass
 install sass: gem install sass
-install grunt-express. for live reloadin
+install grunt-contrib-uglify
+install grunt-contrib-cssmin
+install grunt-contrib-jshint
+install grunt-contrib-qunit
 
 Function Lists:
 Live reloading web server.
-JS lint
+JS lint.
 Sass preprocess compile.
-File concat.
+Concat and compress file.
+Unit test.
+RequireJS for file and module loader.
 
 Undone Lists:
-Uglify files.
-Test app.
 Performance test.
 
 
